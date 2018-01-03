@@ -1,0 +1,10 @@
+{% extends 'admin/admin_layout.html.twig' %}
+
+{% block body %}
+    <h1>Update Novo Post</h1>
+    <hr>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">Atualizar Post</button>
+    {{ form_end(form) }}
+{% endblock %}
