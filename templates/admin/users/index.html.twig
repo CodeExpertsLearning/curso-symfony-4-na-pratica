@@ -1,0 +1,51 @@
+{% extends 'admin/admin_layout.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>
+            Usuários
+            <small>Autores Cadastrados</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+    {% include 'includes/messages.html.twig'%}
+    <div class="col-md-12">
+        <a href="{{ path('admin_user_new') }}" class="btn btn-lg btn-success">Criar Usuário</a>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Criado Em</th>
+                <th>Acões</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td><a href="{{ path('admin_user_update', {'id': user.id}) }}">{{ user.firstName }}</a></td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.createdAt|date('d/M/Y H:i:s') }}</td>
+                    <td>
+                        <a href="{{ path('admin_user_update', {'id': user.id}) }}" class="btn btn-sm btn-default">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a href="{{ path('admin_user_delete', {'id': user.id}) }}" class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </section>
+{% endblock %}
