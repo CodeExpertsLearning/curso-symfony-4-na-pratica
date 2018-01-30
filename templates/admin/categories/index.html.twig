@@ -1,0 +1,54 @@
+{% extends 'admin/admin_layout.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>
+            Categorias
+            <small>Suas categorias</small>
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+            <li class="active">Dashboard</li>
+        </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+    {% include 'includes/messages.html.twig'%}
+    <div class="col-md-12">
+        <a href="{{ path('admin_category_new') }}" class="btn btn-success">
+           <i class="fa fa-book"></i> Criar Categoria
+        </a>
+        <hr>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Categoria</th>
+                <th>Criado Em</th>
+                <th>Acões</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.id }}</td>
+                    <td><a href="{{ path('admin_category_update', {'id': category.id}) }}">{{ category.name }}</a></td>
+                    <td>{{ category.createdAt|date('d/M/Y H:i:s') }}</td>
+                    <td>
+                        <a href="{{ path('admin_category_update', {'id': category.id}) }}" class="btn btn-sm btn-default">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a href="{{ path('admin_category_delete', {'id': category.id}) }}" class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        <!-- Small boxes (Stat box) -->
+    </section>
+{% endblock %}

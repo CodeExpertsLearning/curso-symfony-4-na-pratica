@@ -64,6 +64,11 @@ class User
 	private $updatedAt;
 
 	/**
+	 * @ORM\OneToMany(targetEntity="Post", mappedBy="author")
+	 */
+	private $postCollection;
+
+	/**
 	 * @return mixed
 	 */
 	public function getId()
@@ -195,5 +200,10 @@ class User
 		$this->updatedAt = $updatedAt;
 
 		return $this;
+	}
+
+	public function __toString()
+	{
+		return $this->firstName . ' ' . $this->lastName;
 	}
 }

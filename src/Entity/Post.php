@@ -59,6 +59,16 @@ class Post
 	private $updatedAt;
 
 	/**
+	 * @ORM\ManyToOne(targetEntity="User", inversedBy="postCollection")
+	 */
+	private $author;
+
+	/**
+	 * @ORM\ManyToMany(targetEntity="Category", mappedBy="postCollection")
+	 */
+	private $categoryCollection;
+
+	/**
 	 * @return mixed
 	 */
 	public function getId()
@@ -185,4 +195,45 @@ class Post
 		$this->updatedAt = $updatedAt;
 		return $this;
 	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getAuthor()
+	{
+		return $this->author;
+	}
+
+	/**
+	 * @param mixed $author
+	 */
+	public function setAuthor( $author ): Post
+	{
+		$this->author = $author;
+
+		return $this;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getCategoryCollection()
+	{
+		return $this->categoryCollection;
+	}
+
+	/**
+	 * @param mixed $categoryCollection
+	 */
+	public function setCategoryCollection(Category $categoryCollection): Post
+	{
+		$this->categoryCollection = $categoryCollection;
+		return $this;
+	}
+
+	public function __toString()
+	{
+		return $this->title;
+	}
+
 }

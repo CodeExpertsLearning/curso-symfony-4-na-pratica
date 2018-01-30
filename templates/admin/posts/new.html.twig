@@ -15,7 +15,7 @@
     <!-- Main content -->
     <section class="content">
 
-        {{ form_start(form, , {'attr': {'novalidate': 'novalidate'}}) }}
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
         {{ form_widget(form) }}
         <button type="submit" class="btn btn-success btn-lg">Criar Post</button>
         {{ form_end(form) }}

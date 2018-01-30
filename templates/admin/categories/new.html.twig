@@ -4,7 +4,7 @@
     <section class="content-header">
         <h1>
             Posts
-            <small>Atualizar Post</small>
+            <small>Criar Categoria</small>
         </h1>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -14,9 +14,10 @@
 
     <!-- Main content -->
     <section class="content">
+
         {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
         {{ form_widget(form) }}
-        <button type="submit" class="btn btn-success btn-lg">Atualizar Post</button>
+        <button type="submit" class="btn btn-success btn-lg">Criar Categoria</button>
         {{ form_end(form) }}
     </section>
 {% endblock %}
