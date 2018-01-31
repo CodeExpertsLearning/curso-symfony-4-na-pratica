@@ -44,10 +44,14 @@ class Category
 	private $updatedAt;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="Post", inversedBy="categoryCollection")
-	 * @ORM\JoinTable(name="categories_posts")
+	 * @ORM\ManyToMany(targetEntity="Post", mappedBy="categoryCollection")
 	 */
 	private $postCollection;
+
+	public function __construct()
+	{
+		$this->postCollection = new ArrayCollection();
+	}
 
 	/**
 	 * @return mixed
@@ -143,7 +147,7 @@ class Category
 	}
 
 	/**
-	 * @return mixed
+	 * @return ArrayCollection|Post[]
 	 */
 	public function getPostCollection()
 	{
@@ -153,8 +157,12 @@ class Category
 	/**
 	 * @param mixed $postCollection
 	 */
-	public function setPostCollection($postCollection): Category
+	public function setPostCollection(Post $postCollection): Category
 	{
+		if($this->postCollection->contains($postCollection)) {
+			return $this;
+		}
+
 		$this->postCollection = $postCollection;
 		return $this;
 	}

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -64,9 +65,15 @@ class Post
 	private $author;
 
 	/**
-	 * @ORM\ManyToMany(targetEntity="Category", mappedBy="postCollection")
+	 * @ORM\ManyToMany(targetEntity="Category", inversedBy="postCollection")
+	 * @ORM\JoinTable(name="categories_posts")
 	 */
 	private $categoryCollection;
+
+	public function __construct()
+	{
+		$this->categoryCollection = new ArrayCollection();
+	}
 
 	/**
 	 * @return mixed
@@ -215,7 +222,7 @@ class Post
 	}
 
 	/**
-	 * @return mixed
+	 * @return ArrayCollection|Category[]
 	 */
 	public function getCategoryCollection()
 	{
@@ -227,7 +234,11 @@ class Post
 	 */
 	public function setCategoryCollection(Category $categoryCollection): Post
 	{
-		$this->categoryCollection = $categoryCollection;
+		if($this->categoryCollection->contains($categoryCollection)) {
+			return $this;
+		}
+
+		$this->categoryCollection[] = $categoryCollection;
 		return $this;
 	}
 

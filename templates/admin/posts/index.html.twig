@@ -27,6 +27,7 @@
             <tr>
                 <th>#</th>
                 <th>Titulo</th>
+                <th>Categoria</th>
                 <th>Criado Em</th>
                 <th>Acões</th>
             </tr>
@@ -36,6 +37,12 @@
                 <tr>
                     <td>{{ post.id }}</td>
                     <td><a href="{{ path('admin_post_update', {'id': post.id}) }}">{{ post.title }}</a></td>
+                    <td>
+                        {#{% for c in post.categoryCollection %}#}
+                            {#<strong>{{ c.name }}</strong>#}
+                        {#{% endfor %}#}
+                        {{ post.categoryCollection|join(', ') }}
+                    </td>
                     <td>{{ post.createdAt|date('d/M/Y H:i:s') }}</td>
                     <td>
                         <a href="{{ path('admin_post_update', {'id': post.id}) }}" class="btn btn-sm btn-default">
