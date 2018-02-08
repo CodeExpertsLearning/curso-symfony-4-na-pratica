@@ -37,12 +37,16 @@ class AdminUserController extends Controller
 		$form->handleRequest($request);
 
 		if($form->isSubmitted() && $form->isValid()) {
-			$post = $form->getData();
-			$post->setCreatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
-			$post->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
+			$user = $form->getData();
+
+			$password = $this->get('security.password_encoder')->encodePassword(new User(), $user->getPassword());
+
+			$user->setPassword($password);
+			$user->setCreatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
+			$user->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
 
 			$entityManager = $this->getDoctrine()->getManager();
-			$entityManager->persist($post);
+			$entityManager->persist($user);
 			$entityManager->flush();
 
 			$this->addFlash('success', 'Usuário salvo com sucesso!');
@@ -64,11 +68,14 @@ class AdminUserController extends Controller
 	    $form->handleRequest($request);
 
 	    if($form->isSubmitted() && $form->isValid()) {
-		    $post = $form->getData();
-		    $post->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
+		    $user = $form->getData();
+		    $password = $this->get('security.password_encoder')->encodePassword(new User(), $user->getPassword());
+
+		    $user->setPassword($password);
+		    $user->setUpdatedAt(new \DateTime("now", new \DateTimeZone("America/Sao_Paulo")));
 
 		    $entityManager = $this->getDoctrine()->getManager();
-		    $entityManager->merge($post);
+		    $entityManager->merge($user);
 		    $entityManager->flush();
 
 		    $this->addFlash('success', 'Usuário atualizado com sucesso!');

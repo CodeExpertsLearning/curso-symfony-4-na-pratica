@@ -18,7 +18,6 @@ class HomeController extends Controller
 	                  ->getRepository(Post::class)
 	                  ->findAll();
 
-    	var_dump($posts);
-        return new Response('Seja Bem Vindo ao Blog Sf4!');
+        return $this->render('site/home.html.twig');
     }
 }

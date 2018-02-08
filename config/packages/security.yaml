@@ -1,0 +1,37 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        db:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # https://symfony.com/doc/current/security/form_login_setup.html
+        main:
+            provider: db
+            anonymous: true
+            form_login:
+               login_path: login
+               check_path: login
+            logout:
+               path: /logout
+               target: /
+
+    encoders:
+        App\Entity\User:
+           algorithm: bcrypt
+
+    access_control:
+       - { path: ^/admin, roles: ROLE_ADMIN }
+       - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+       - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY}

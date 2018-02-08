@@ -3,13 +3,14 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @ORM\Table(name="users")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -62,6 +63,11 @@ class User
 	 * @ORM\Column(name="updated_at", type="datetime")
 	 */
 	private $updatedAt;
+
+	/**
+	 * @ORM\Column(name="roles", type="string", length=255)
+	 */
+	private $roles;
 
 	/**
 	 * @ORM\OneToMany(targetEntity="Post", mappedBy="author")
@@ -205,5 +211,18 @@ class User
 	public function __toString()
 	{
 		return $this->firstName . ' ' . $this->lastName;
+	}
+
+	public function getRoles()
+	{
+		return !$this->roles ? [] : explode(',', $this->roles);
+	}
+
+	public function getSalt() {
+		return null;
+	}
+
+	public function eraseCredentials()
+	{
 	}
 }
