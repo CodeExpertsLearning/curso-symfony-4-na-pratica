@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -82,6 +83,7 @@ class AdminCategoryController extends Controller
 
     /**
 	 * @Route("/delete/{id}", name="admin_category_delete")
+     * @Security("has_role('ROLE_ADMIN')")
 	 */
     public function delete(Category $category)
     {

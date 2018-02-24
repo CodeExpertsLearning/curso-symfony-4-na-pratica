@@ -20,9 +20,14 @@ class AdminPostController extends Controller
      */
     public function index()
     {
-    	$posts = $this->getDoctrine()
-                      ->getRepository(Post::class)
-                      ->findAll();
+	    $user = $this->getUser();
+    	if(in_array('ROLE_AUTHOR', $user->getRoles())) {
+			$posts = $user->getPostCollection();
+	    } else {
+		    $posts = $this->getDoctrine()
+		                  ->getRepository(Post::class)
+		                  ->findAll();
+	    }
 
         return $this->render('admin/posts/index.html.twig', [
         	'posts' => $posts

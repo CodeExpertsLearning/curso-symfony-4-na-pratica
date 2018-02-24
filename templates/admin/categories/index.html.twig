@@ -41,9 +41,11 @@
                         <a href="{{ path('admin_category_update', {'id': category.id}) }}" class="btn btn-sm btn-default">
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a href="{{ path('admin_category_delete', {'id': category.id}) }}" class="btn btn-sm btn-danger">
-                            <i class="fa fa-trash"></i>
-                        </a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('admin_category_delete', {'id': category.id}) }}" class="btn btn-sm btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

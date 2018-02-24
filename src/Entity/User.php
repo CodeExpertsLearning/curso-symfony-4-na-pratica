@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -73,6 +74,11 @@ class User implements UserInterface
 	 * @ORM\OneToMany(targetEntity="Post", mappedBy="author")
 	 */
 	private $postCollection;
+
+	public function __construct()
+	{
+		$this->postCollection = new ArrayCollection();
+	}
 
 	/**
 	 * @return mixed
@@ -208,6 +214,14 @@ class User implements UserInterface
 		return $this;
 	}
 
+	/**
+	 * @return ArrayCollection/Post
+	 */
+	public function getPostCollection()
+	{
+		return $this->postCollection;
+	}
+
 	public function __toString()
 	{
 		return $this->firstName . ' ' . $this->lastName;
@@ -217,6 +231,16 @@ class User implements UserInterface
 	{
 		return !$this->roles ? [] : explode(',', $this->roles);
 	}
+
+	/**
+	 * @param mixed $roles
+	 */
+	public function setRoles($roles): User
+	{
+		$this->roles = $roles;
+		return $this;
+	}
+
 
 	public function getSalt() {
 		return null;

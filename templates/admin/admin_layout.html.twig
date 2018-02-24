@@ -321,6 +321,7 @@
             </div>
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu" data-widget="tree">
+                {% if  is_granted('ROLE_AUTHOR') %}
                 <li>
                     <a href="{{ path('admin_post') }}">
                         <i class="fa fa-book"></i> <span>Posts</span>
@@ -331,11 +332,14 @@
                         <i class="fa fa-book"></i> <span>Categories</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ path('admin_user') }}">
-                        <i class="fa fa-user"></i> <span>Users</span>
-                    </a>
-                </li>
+                {% endif %}
+                {% if  is_granted('ROLE_ADMIN') %}
+                    <li>
+                        <a href="{{ path('admin_user') }}">
+                            <i class="fa fa-user"></i> <span>Users</span>
+                        </a>
+                    </li>
+                {% endif %}
             </ul>
         </section>
         <!-- /.sidebar -->

@@ -32,6 +32,10 @@ security:
            algorithm: bcrypt
 
     access_control:
-       - { path: ^/admin, roles: ROLE_ADMIN }
+       - { path: ^/admin/users, roles: ROLE_ADMIN }
+       - { path: ^/admin, roles: ROLE_AUTHOR }
        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY}
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_AUTHOR
