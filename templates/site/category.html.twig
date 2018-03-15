@@ -1,7 +1,9 @@
 {% extends('site/layout.html.twig') %}
 
 {% block body %}
-    {% for p in posts %}
+    <h1>Categoria: {{ category.name }}</h1>
+    <hr>
+    {% for p in category.postCollection %}
     <!-- Post -->
     <article class="post">
         <header>

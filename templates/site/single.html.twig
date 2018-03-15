@@ -1,0 +1,21 @@
+{% extends('site/layout.html.twig') %}
+
+{% block body %}
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2><a href="{{ url('home') }}">{{ post.title }}</a></h2>
+                <p>{{ post.description }}</p>
+            </div>
+            <div class="meta">
+                <time class="published" datetime="{{ post.createdAt|date('Y-m-d') }}">{{ post.createdAt|date('F d, Y') }}</time>
+                <a href="#" class="author"><span class="name">{{ post.author.firstName }}</span>
+                    <img src="/site/images/avatar.jpg" alt="" />
+                </a>
+            </div>
+        </header>
+        {{ post.content }}
+        <footer>
+        </footer>
+    </article>
+{% endblock %}

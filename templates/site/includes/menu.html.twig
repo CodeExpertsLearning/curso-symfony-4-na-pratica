@@ -1,0 +1,10 @@
+<nav class="links">
+    <ul>
+        <li>
+            <a href="{{ url('home') }}">Home</a>
+        </li>
+        {% for c in categories %}
+            <li><a href="{{ url('category_site', {'slug': c.slug}) }}">{{ c.name }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
