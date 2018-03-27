@@ -1,6 +1,8 @@
 {% extends('site/layout.html.twig') %}
 
 {% block body %}
+    <h1>Busca por: {{ term }}</h1>
+    <hr>
     {% for p in posts %}
     <!-- Post -->
     <article class="post">

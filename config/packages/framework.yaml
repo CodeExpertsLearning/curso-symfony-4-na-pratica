@@ -13,3 +13,7 @@ framework:
     #fragments: ~
     php_errors:
         log: true
+
+knp_paginator:
+    template:
+        pagination: 'site/includes/my_pagination_template.html.twig'

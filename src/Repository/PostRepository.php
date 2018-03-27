@@ -25,4 +25,14 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function searchPost($term)
+    {
+    	return $this->createQueryBuilder('p')
+		    ->where('p.title LIKE :term')
+		    ->orWhere('p.description LIKE :term')
+		    ->setParameter(':term', '%' . $term . '%')
+		    ->getQuery()
+		    ->getResult();
+    }
 }
