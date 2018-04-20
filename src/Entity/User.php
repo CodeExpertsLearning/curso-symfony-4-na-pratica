@@ -237,7 +237,8 @@ class User implements UserInterface
 	 */
 	public function setRoles($roles): User
 	{
-		$this->roles = $roles;
+		$this->roles = implode(',' , $roles);
+
 		return $this;
 	}
 

@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Service\MailerService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +39,7 @@ class AdminUserController extends Controller
 
 		if($form->isSubmitted() && $form->isValid()) {
 			$user = $form->getData();
-
+			$plainPassword = $user->getPassword();
 			$password = $this->get('security.password_encoder')->encodePassword(new User(), $user->getPassword());
 
 			$user->setPassword($password);
@@ -48,6 +49,19 @@ class AdminUserController extends Controller
 			$entityManager = $this->getDoctrine()->getManager();
 			$entityManager->persist($user);
 			$entityManager->flush();
+
+			//Envio de Email com nosso Service
+			$mailer = $this->get('App\Service\MailerService');
+			$data = [
+				'subject' => 'Sua conta foi criada',
+				'name'    => $user->getFirstName(),
+				'email' => $user->getEmail(),
+				'username' => $user->getUsername(),
+				'password' => $plainPassword
+			];
+
+			$view = $this->renderView('emails/signup.html.twig', $data);
+			$mailer->send($data, $view);
 
 			$this->addFlash('success', 'Usuário salvo com sucesso!');
 			return $this->redirectToRoute('admin_user');

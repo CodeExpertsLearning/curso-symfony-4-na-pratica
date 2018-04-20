@@ -24,7 +24,7 @@ security:
                login_path: login
                check_path: login
             logout:
-               path: /logout
+               path: /admin/logout
                target: /
 
     encoders:
@@ -33,8 +33,8 @@ security:
 
     access_control:
        - { path: ^/admin/users, roles: ROLE_ADMIN }
+       - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
        - { path: ^/admin, roles: ROLE_AUTHOR }
-       - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY}
        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY}
 
     role_hierarchy:
